@@ -62,7 +62,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .badge{font-size:.62em;padding:2px 6px;border-radius:4px;font-weight:800;}
 .badge.free{background:rgba(34,197,94,.15);color:var(--green);}
 .badge.pro{background:linear-gradient(90deg,var(--gold),var(--orange));color:#000;}
-
 .main{margin-left:270px;padding:20px 28px 40px;transition:margin .3s ease;position:relative;z-index:1;min-height:100vh;}
 .main.expanded{margin-left:0;}
 .topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
@@ -71,7 +70,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .topbar h2{font-size:1.3em;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .topbar .user-pill{margin-left:auto;padding:6px 14px;border-radius:20px;font-size:.75em;font-weight:800;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.35);}
 .logout-btn{margin-left:8px;padding:6px 14px;border-radius:20px;font-size:.75em;font-weight:800;background:rgba(255,51,102,.12);color:var(--red);border:1px solid rgba(255,51,102,.35);cursor:pointer;}
-
 .view{display:none;animation:viewIn .35s ease;}
 .view.active{display:block;}
 @keyframes viewIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
@@ -122,6 +120,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .status-bar{padding:10px 14px;border-radius:8px;font-size:.85em;margin-bottom:14px;font-weight:800;}
 .status-bar.ok{background:rgba(34,197,94,.12);color:var(--accent2);border-left:3px solid var(--accent2);}
 .status-bar.err{background:rgba(255,51,102,.12);color:var(--red);border-left:3px solid var(--red);}
+.status-bar.info{background:rgba(0,212,255,.12);color:var(--accent);border-left:3px solid var(--accent);}
 .res-card{background:var(--surface2);border-left:3px solid transparent;border-image:linear-gradient(180deg,var(--accent),var(--accent3)) 1;border-radius:8px;padding:14px 16px;margin-bottom:10px;}
 .res-card .idx{color:var(--accent3);font-weight:900;font-size:.8em;margin-bottom:10px;}
 .res-card .row{display:flex;justify-content:space-between;padding:6px 0;font-size:.82em;border-bottom:1px dashed rgba(255,255,255,.05);}
@@ -288,23 +287,38 @@ const APIS = {
 };
 
 // ============================================================
-// LOCALSTORAGE AUTH (Kullanıcılar tarayıcıda saklanır)
+// 🔥 5 GÜÇLÜ USER-AGENT (Gerçek tarayıcılardan birebir)
+// ============================================================
+const USER_AGENTS = [
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0',
+  'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1',
+  'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36'
+];
+
+// ============================================================
+// 🔥 5 GÜÇLÜ CORS/CLOUDFLARE BYPASS PROXY
+// ============================================================
+const PROXY_LIST = [
+  { name:'corsproxy.io',        build: url => 'https://corsproxy.io/?url=' + encodeURIComponent(url) },
+  { name:'allorigins',          build: url => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url) },
+  { name:'codetabs',            build: url => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url) },
+  { name:'cors-anywhere',       build: url => 'https://cors-anywhere.herokuapp.com/' + url },
+  { name:'thingproxy',          build: url => 'https://thingproxy.freeboard.io/fetch/' + url }
+];
+
+// ============================================================
+// LOCALSTORAGE AUTH
 // ============================================================
 const STORAGE_KEY = 'aro_users_v1';
-
 function hashStr(s){
   let h = 0;
   for (let i = 0; i < s.length; i++){ h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
   return 'h' + Math.abs(h).toString(36) + s.length;
 }
-
-function getUsers(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
-}
-function setUsers(u){
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); } catch {}
-}
-
+function getUsers(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+function setUsers(u){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); } catch {} }
 let currentUser = null;
 
 function switchTab(t){
@@ -319,28 +333,23 @@ function switchTab(t){
     document.getElementById('formKayit').style.display = 'block';
   }
 }
-
 function showMsg(id, text, type){
   const e = document.getElementById(id);
   e.textContent = text;
   e.className = 'auth-msg ' + type;
   e.style.display = 'block';
 }
-
 function doRegister(){
   const k = document.getElementById('kayitKullanici').value.trim();
   const s = document.getElementById('kayitSifre').value;
   if(!k || !s){ showMsg('kayitMsg','Kullanıcı ve şifre gerekli','err'); return; }
   if(k.length < 3){ showMsg('kayitMsg','Kullanıcı adı en az 3 karakter','err'); return; }
   if(s.length < 4){ showMsg('kayitMsg','Şifre en az 4 karakter','err'); return; }
-
   const users = getUsers();
   if(users[k]){ showMsg('kayitMsg','Bu kullanıcı adı zaten var','err'); return; }
-
   users[k] = { sifre: hashStr(s), tarih: new Date().toISOString(), premium: false };
   setUsers(users);
   showMsg('kayitMsg','✅ Kayıt başarılı! Giriş yapılıyor...','ok');
-
   setTimeout(() => {
     document.getElementById('girisKullanici').value = k;
     document.getElementById('girisSifre').value = s;
@@ -348,22 +357,18 @@ function doRegister(){
     doLogin();
   }, 700);
 }
-
 function doLogin(){
   const k = document.getElementById('girisKullanici').value.trim();
   const s = document.getElementById('girisSifre').value;
   if(!k || !s){ showMsg('girisMsg','Kullanıcı ve şifre gerekli','err'); return; }
-
   const users = getUsers();
   const u = users[k];
   if(!u){ showMsg('girisMsg','Kullanıcı bulunamadı','err'); return; }
   if(u.sifre !== hashStr(s)){ showMsg('girisMsg','Şifre hatalı','err'); return; }
-
   currentUser = { kullanici: k, premium: u.premium || false };
   showMsg('girisMsg','✅ Giriş başarılı! Menüye yönlendiriliyorsun...','ok');
   setTimeout(openApp, 600);
 }
-
 function openApp(){
   document.getElementById('authWrap').style.display = 'none';
   document.getElementById('app').classList.add('show');
@@ -372,7 +377,6 @@ function openApp(){
   document.getElementById('browserInfo').textContent = navigator.userAgent.includes('Mobile') ? 'MOBİL' : 'MASAÜSTÜ';
   document.getElementById('lastScan').textContent = new Date().toLocaleTimeString('tr-TR');
 }
-
 function doLogout(){
   if(!confirm('Çıkış yapmak istediğine emin misin?')) return;
   currentUser = null;
@@ -404,7 +408,6 @@ function toggleCat(el){ el.parentElement.classList.toggle('open'); }
 // SAYFA GEÇİŞ
 // ============================================================
 let activeApi = null;
-
 function showView(id){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -421,7 +424,6 @@ function goTo(apiKey){
   if(!cfg) return;
   activeApi = apiKey;
 
-  // PRO kontrolü
   if(cfg.tag === 'PRO' && (!currentUser || !currentUser.premium)){
     alert('💎 Bu sorgu PREMIUM üyelik gerektirir!');
     return;
@@ -455,8 +457,39 @@ function goTo(apiKey){
 }
 
 // ============================================================
-// SORGULAMA - Doğrudan fetch + CORS proxy fallback
+// 🔥 SORGULAMA - 5 User-Agent + 5 Proxy zinciri
 // ============================================================
+async function fetchWithFallback(targetUrl){
+  // 1. Direkt dene
+  try {
+    const res = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'tr-TR,tr;q=0.9,en;q=0.8'
+      }
+    });
+    if(res.ok){
+      const txt = await res.text();
+      return { kaynak:'direkt', text: txt };
+    }
+  } catch(e) { /* devam */ }
+
+  // 2. 5 proxy'i sırayla dene
+  for(const proxy of PROXY_LIST){
+    try {
+      const proxyUrl = proxy.build(targetUrl);
+      const res = await fetch(proxyUrl, { method:'GET' });
+      if(res.ok){
+        const txt = await res.text();
+        return { kaynak: proxy.name, text: txt };
+      }
+    } catch(e) { /* sonraki */ }
+  }
+
+  return { kaynak: null, text: null };
+}
+
 async function doSearch(){
   if(!activeApi) return;
   const cfg = APIS[activeApi];
@@ -477,41 +510,33 @@ async function doSearch(){
   let targetUrl = `${base}${cfg.path}?${qs}`;
   if(cfg.base === 'search') targetUrl += `&key=${SEARCH_KEY}`;
 
+  // User-Agent seç (bilgi amaçlı)
+  const ua = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
+
   const btn = document.getElementById('searchBtn');
   if(btn) btn.disabled = true;
-  showResult('<div class="loading"><div class="spinner"></div><p style="color:var(--accent);">Sorgulanıyor...</p></div>');
+  showResult(`<div class="loading"><div class="spinner"></div><p style="color:var(--accent);">Sorgulanıyor...</p>
+    <p style="color:var(--dim);font-size:.75em;margin-top:8px;">Direkt + 5 proxy zinciri deneniyor</p></div>`);
 
-  // 1) Direkt dene
-  try {
-    const res = await fetch(targetUrl);
-    const txt = await res.text();
-    let data; try { data = JSON.parse(txt); } catch { data = txt; }
-    renderResult(data);
+  const result = await fetchWithFallback(targetUrl);
+
+  if(!result.text){
+    showResult(`<div class="status-bar err">❌ Hiçbir kaynaktan veri alınamadı</div>
+      <p style="color:var(--dim);font-size:.82em;margin-top:10px;">
+        Denenen kaynaklar: Direkt + ${PROXY_LIST.map(p=>p.name).join(', ')}<br>
+        Sebep: API CORS'a kapalı veya proxy'ler de engellendi.
+      </p>`);
     if(btn) btn.disabled = false;
     return;
-  } catch(e) {
-    // CORS hatası — proxy dene
   }
 
-  // 2) CORS proxy fallback
-  const PROXIES = [
-    'https://corsproxy.io/?url=',
-    'https://api.allorigins.win/raw?url=',
-    'https://api.codetabs.com/v1/proxy?quest='
-  ];
+  let data;
+  try { data = JSON.parse(result.text); } catch { data = result.text; }
 
-  for(const proxy of PROXIES){
-    try {
-      const res = await fetch(proxy + encodeURIComponent(targetUrl));
-      const txt = await res.text();
-      let data; try { data = JSON.parse(txt); } catch { data = txt; }
-      renderResult(data);
-      if(btn) btn.disabled = false;
-      return;
-    } catch(e) { /* sonrakini dene */ }
-  }
-
-  showResult('<div class="status-bar err">❌ Bağlantı hatası: API erişilemedi (CORS veya ağ sorunu)</div>');
+  // Kaynak bilgisi göster
+  const kaynak = result.kaynak === 'direkt' ? '✅ Direkt' : `🌐 ${result.kaynak}`;
+  showResult(`<div class="status-bar info" style="font-size:.75em;">📡 Kaynak: ${kaynak} • UA: ${ua.slice(0,40)}...</div>`);
+  renderResult(data);
   if(btn) btn.disabled = false;
 }
 
@@ -525,7 +550,8 @@ function renderResult(data){
   if(str.length > 4000){
     const blob = new Blob([str], {type:'text/plain;charset=utf-8'});
     const url = URL.createObjectURL(blob);
-    showResult(`
+    const currentHtml = document.getElementById('result').innerHTML;
+    showResult(currentHtml + `
       <div class="status-bar ok">✅ Büyük veri geldi (${(str.length/1024).toFixed(1)} KB)</div>
       <a class="dl-btn" href="${url}" download="sonuc_${Date.now()}.txt">📥 TXT İNDİR</a>
       <details style="margin-top:14px;"><summary style="cursor:pointer;color:var(--accent);">📄 Önizleme</summary>
@@ -556,11 +582,10 @@ function renderResult(data){
   } else {
     html = `<div class="res-card">${esc(String(data))}</div>`;
   }
-  showResult(html);
+  document.getElementById('result').innerHTML += html;
 }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// Enter ile sorgula
 document.addEventListener('keypress', e => {
   if(e.key === 'Enter'){
     if(document.getElementById('authWrap').style.display !== 'none'){
