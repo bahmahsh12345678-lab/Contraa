@@ -26,7 +26,83 @@ body::before{
   pointer-events:none;z-index:0;
 }
 
-/* SIDEBAR */
+/* ============ AUTH ============ */
+.auth-wrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:20px;position:relative;z-index:1;
+}
+.auth-box{
+  width:100%;max-width:400px;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:16px;padding:34px 30px;
+  animation:viewIn .5s ease;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.auth-logo{
+  width:60px;height:60px;border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:#000;font-size:24px;
+  margin:0 auto 16px;
+  box-shadow:0 0 30px rgba(0,212,255,.5);
+}
+.auth-box h1{
+  text-align:center;font-size:1.5em;font-weight:900;
+  background:linear-gradient(90deg,var(--accent),var(--accent3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:6px;
+}
+.auth-box p{text-align:center;color:var(--dim);font-size:.85em;margin-bottom:22px;}
+.tabs{
+  display:flex;gap:6px;background:var(--bg);padding:5px;
+  border-radius:10px;margin-bottom:20px;
+}
+.tab{
+  flex:1;padding:10px;text-align:center;
+  border-radius:8px;cursor:pointer;
+  font-weight:700;font-size:.9em;
+  color:var(--dim);transition:.2s;
+}
+.tab.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  color:#000;
+}
+.auth-field{margin-bottom:14px;}
+.auth-field label{
+  display:block;font-size:.8em;color:var(--accent2);
+  margin-bottom:6px;font-weight:700;
+}
+.auth-field input{
+  width:100%;padding:13px 16px;background:var(--bg);
+  border:1px solid var(--border2);border-radius:10px;
+  color:var(--text);font-size:.95em;outline:none;
+  transition:.2s;font-family:inherit;
+}
+.auth-field input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(0,212,255,.12);
+}
+.auth-btn{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  border:none;border-radius:10px;color:#000;
+  font-weight:900;cursor:pointer;font-size:1em;
+  transition:.2s;margin-top:8px;
+}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,212,255,.4);}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.auth-msg{
+  padding:10px;border-radius:8px;font-size:.85em;
+  margin-top:12px;font-weight:600;text-align:center;
+}
+.auth-msg.err{background:rgba(255,51,102,.12);color:var(--red);}
+.auth-msg.ok{background:rgba(34,197,94,.12);color:var(--green);}
+.auth-msg.info{background:rgba(0,212,255,.12);color:var(--accent);}
+
+/* ============ PANEL ============ */
+.app{display:none;}
+.app.show{display:block;}
+
 .sidebar{
   position:fixed;left:0;top:0;bottom:0;width:270px;
   background:var(--bg2);border-right:1px solid var(--border);
@@ -45,9 +121,8 @@ body::before{
   background:linear-gradient(135deg,var(--accent),var(--accent3));
   display:flex;align-items:center;justify-content:center;
   font-weight:900;color:#000;font-size:16px;
-  box-shadow:0 0 20px rgba(0,212,255,.4);
 }
-.logo-text{font-weight:800;font-size:1em;letter-spacing:.5px;}
+.logo-text{font-weight:800;font-size:1em;}
 .logo-text span{
   background:linear-gradient(90deg,var(--accent),var(--accent3));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
@@ -74,8 +149,7 @@ body::before{
 .cat.open .cat-body{max-height:800px;}
 .item{
   padding:9px 12px 9px 40px;font-size:.82em;
-  color:#a8b3c4;
-  cursor:pointer;border-radius:6px;margin:1px 4px;
+  color:#a8b3c4;cursor:pointer;border-radius:6px;margin:1px 4px;
   display:flex;justify-content:space-between;align-items:center;
   transition:.15s;position:relative;
 }
@@ -88,11 +162,10 @@ body::before{
   width:3px;background:linear-gradient(180deg,var(--accent),var(--accent3));
   border-radius:0 3px 3px 0;
 }
-.badge{font-size:.62em;padding:2px 6px;border-radius:4px;font-weight:800;letter-spacing:.5px;}
+.badge{font-size:.62em;padding:2px 6px;border-radius:4px;font-weight:800;}
 .badge.free{background:rgba(34,197,94,.15);color:var(--green);}
 .badge.pro{background:linear-gradient(90deg,var(--gold),var(--orange));color:#000;}
 
-/* MAIN */
 .main{
   margin-left:270px;padding:20px 28px 40px;
   transition:margin .3s ease;position:relative;z-index:1;
@@ -108,55 +181,45 @@ body::before{
   width:38px;height:38px;border-radius:8px;
   background:var(--surface);border:1px solid var(--border);
   cursor:pointer;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:4px;transition:.2s;
+  align-items:center;justify-content:center;gap:4px;
 }
-.burger:hover{border-color:var(--accent);}
 .burger span{width:16px;height:2px;background:var(--accent);border-radius:2px;}
 .topbar h2{
   font-size:1.3em;font-weight:900;
   background:linear-gradient(90deg,var(--accent),var(--accent3));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
 }
-.topbar .status-pill{
+.topbar .user-pill{
   margin-left:auto;padding:6px 14px;border-radius:20px;
   font-size:.75em;font-weight:800;
   background:rgba(34,197,94,.15);color:var(--green);
   border:1px solid rgba(34,197,94,.35);
-  box-shadow:0 0 15px rgba(34,197,94,.2);
+}
+.logout-btn{
+  margin-left:8px;padding:6px 14px;border-radius:20px;
+  font-size:.75em;font-weight:800;
+  background:rgba(255,51,102,.12);color:var(--red);
+  border:1px solid rgba(255,51,102,.35);
+  cursor:pointer;
 }
 
-/* SAYFA (View) Sistemi */
 .view{display:none;animation:viewIn .35s ease;}
 .view.active{display:block;}
-@keyframes viewIn{
-  from{opacity:0;transform:translateY(15px);}
-  to{opacity:1;transform:translateY(0);}
-}
+@keyframes viewIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
 
-/* Dashboard */
 .welcome{
   background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(255,0,229,.06));
   border:1px solid var(--border2);border-radius:14px;
   padding:24px 28px;margin-bottom:22px;
-  position:relative;overflow:hidden;
-}
-.welcome::before{
-  content:'';position:absolute;right:-50px;top:-50px;
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,212,255,.2),transparent 70%);
 }
 .welcome h1{
   font-size:1.6em;font-weight:900;
   background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
   background-size:200% auto;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:8px;
-  animation:shine 3s linear infinite;
+  margin-bottom:8px;animation:shine 3s linear infinite;
 }
-@keyframes shine{
-  to{background-position:200% center;}
-}
+@keyframes shine{to{background-position:200% center;}}
 .welcome p{color:#a8b3c4;font-size:.9em;}
 .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px;}
 @media(max-width:900px){.grid{grid-template-columns:1fr;}}
@@ -181,8 +244,7 @@ body::before{
   border-radius:12px;padding:18px;
 }
 .analysis h3{
-  font-size:.9em;margin-bottom:14px;
-  color:var(--accent);
+  font-size:.9em;margin-bottom:14px;color:var(--accent);
   display:flex;align-items:center;gap:8px;
 }
 .analysis h3::before{
@@ -201,22 +263,15 @@ body::before{
 .a-row .v{font-weight:800;font-size:.85em;}
 .v.ok{color:var(--accent2);}
 .v.no{color:var(--red);}
-
-/* Sorgu Sayfası */
-.page-head{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:20px;
-}
+.page-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
 .back-btn{
   width:40px;height:40px;border-radius:10px;
   background:var(--surface);border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1.2em;color:var(--accent);
-  transition:.2s;
+  cursor:pointer;font-size:1.2em;color:var(--accent);transition:.2s;
 }
 .back-btn:hover{
-  border-color:var(--accent);
-  background:rgba(0,212,255,.1);
+  border-color:var(--accent);background:rgba(0,212,255,.1);
   transform:translateX(-3px);
 }
 .page-head h2{
@@ -225,13 +280,11 @@ body::before{
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 .page-head .page-tag{
-  margin-left:auto;
-  font-size:.7em;padding:4px 10px;border-radius:6px;
+  margin-left:auto;font-size:.7em;padding:4px 10px;border-radius:6px;
   background:rgba(0,212,255,.12);color:var(--accent);
   border:1px solid rgba(0,212,255,.3);
-  font-weight:800;letter-spacing:.5px;
+  font-weight:800;
 }
-
 .query-card{
   background:var(--surface);border:1px solid var(--border2);
   border-radius:14px;padding:26px;margin-bottom:20px;
@@ -243,7 +296,7 @@ body::before{
 .field{margin-bottom:14px;}
 .field label{
   display:block;font-size:.8em;color:var(--accent2);
-  margin-bottom:6px;font-weight:700;letter-spacing:.3px;
+  margin-bottom:6px;font-weight:700;
 }
 .field input{
   width:100%;padding:14px 18px;background:var(--bg);
@@ -251,25 +304,19 @@ body::before{
   color:var(--text);font-size:.95em;outline:none;
   transition:.2s;font-family:inherit;
 }
-.field input::placeholder{color:#5a6470;}
 .field input:focus{
   border-color:var(--accent);
   box-shadow:0 0 0 3px rgba(0,212,255,.12);
-  background:#0d1420;
 }
 .submit-btn{
   width:100%;padding:15px;
   background:linear-gradient(135deg,var(--accent),var(--accent3));
   border:none;border-radius:10px;color:#000;
   font-weight:900;cursor:pointer;font-size:1em;
-  letter-spacing:.5px;transition:.2s;margin-top:6px;
+  transition:.2s;margin-top:6px;
 }
-.submit-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(0,212,255,.4);
-}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.4);}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-
 .result{
   background:var(--surface);border:1px solid var(--border);
   border-radius:14px;padding:22px;
@@ -280,9 +327,7 @@ body::before{
   background:linear-gradient(180deg,var(--accent),var(--accent3));
   border-radius:3px;
 }
-.placeholder{
-  color:var(--dim);text-align:center;padding:40px 20px;font-size:.9em;
-}
+.placeholder{color:var(--dim);text-align:center;padding:40px 20px;font-size:.9em;}
 .loading{text-align:center;padding:40px;}
 .spinner{
   width:34px;height:34px;margin:0 auto 14px;
@@ -310,7 +355,7 @@ body::before{
 }
 .res-card .idx{
   color:var(--accent3);font-weight:900;font-size:.8em;
-  margin-bottom:10px;letter-spacing:.5px;
+  margin-bottom:10px;
 }
 .res-card .row{
   display:flex;justify-content:space-between;
@@ -323,11 +368,9 @@ body::before{
 .dl-btn{
   display:inline-block;padding:11px 22px;
   background:linear-gradient(135deg,var(--accent),var(--accent3));
-  color:#000;
-  border-radius:8px;text-decoration:none;
+  color:#000;border-radius:8px;text-decoration:none;
   font-weight:900;font-size:.85em;margin-top:10px;
 }
-
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;}
 .overlay.show{display:block;}
 @media(max-width:768px){
@@ -339,182 +382,284 @@ body::before{
 </head>
 <body>
 
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<!-- ============ GİRİŞ / KAYIT ============ -->
+<div class="auth-wrap" id="authWrap">
+  <div class="auth-box">
+    <div class="auth-logo">AR</div>
+    <h1>ARO SYSTEM</h1>
+    <p>Giriş yap veya kayıt ol</p>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-head">
-    <div class="logo">AR</div>
-    <div class="logo-text">ARO<span>SYSTEM</span></div>
-  </div>
-  <div class="sidebar-title">Sorgu Menüsü</div>
-
-  <div class="cat open">
-    <div class="cat-header" onclick="toggleCat(this)">
-      <div class="cat-left">👤 Nüfus & Kişi</div><span class="arrow">▶</span>
-    </div>
-    <div class="cat-body">
-      <div class="item" data-api="tc" onclick="goTo('tc')">TC Sorgu <span class="badge free">FREE</span></div>
-      <div class="item" data-api="tcpro" onclick="goTo('tcpro')">TC Pro <span class="badge pro">PRO</span></div>
-      <div class="item" data-api="adsoyad" onclick="goTo('adsoyad')">Ad Soyad <span class="badge free">FREE</span></div>
-      <div class="item" data-api="adsoyadpro" onclick="goTo('adsoyadpro')">Detaylı Kişi <span class="badge pro">PRO</span></div>
-    </div>
-  </div>
-
-  <div class="cat">
-    <div class="cat-header" onclick="toggleCat(this)">
-      <div class="cat-left">👪 Aile & Sülale</div><span class="arrow">▶</span>
-    </div>
-    <div class="cat-body">
-      <div class="item" data-api="aile" onclick="goTo('aile')">Aile Sorgu <span class="badge free">FREE</span></div>
-      <div class="item" data-api="sulale" onclick="goTo('sulale')">Sülale Sorgu <span class="badge free">FREE</span></div>
-      <div class="item" data-api="cocuk" onclick="goTo('cocuk')">Çocuk Sorgu <span class="badge free">FREE</span></div>
-    </div>
-  </div>
-
-  <div class="cat">
-    <div class="cat-header" onclick="toggleCat(this)">
-      <div class="cat-left">📍 Adres & Konum</div><span class="arrow">▶</span>
-    </div>
-    <div class="cat-body">
-      <div class="item" data-api="adres" onclick="goTo('adres')">Detaylı Adres <span class="badge pro">PRO</span></div>
-    </div>
-  </div>
-
-  <div class="cat">
-    <div class="cat-header" onclick="toggleCat(this)">
-      <div class="cat-left">📱 İletişim</div><span class="arrow">▶</span>
-    </div>
-    <div class="cat-body">
-      <div class="item" data-api="tcgsm" onclick="goTo('tcgsm')">TC→GSM <span class="badge free">FREE</span></div>
-      <div class="item" data-api="gsmtc" onclick="goTo('gsmtc')">GSM→TC <span class="badge free">FREE</span></div>
-    </div>
-  </div>
-
-  <div class="cat">
-    <div class="cat-header" onclick="toggleCat(this)">
-      <div class="cat-left">🏢 İş Yeri</div><span class="arrow">▶</span>
-    </div>
-    <div class="cat-body">
-      <div class="item" data-api="isyeri" onclick="goTo('isyeri')">İş Yeri Sorgu <span class="badge free">FREE</span></div>
-    </div>
-  </div>
-</aside>
-
-<!-- MAIN -->
-<main class="main" id="main">
-  <div class="topbar">
-    <div class="burger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
-    <h2>ARO SYSTEM</h2>
-    <div class="status-pill">● ONLINE</div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <section class="view active" id="view-dashboard">
-    <div class="welcome">
-      <h1>ARO SYSTEM'E HOŞGELDİNİZ</h1>
-      <p>Sol menüden sorgu tipi seç, kendi sayfasında işlem yap.</p>
+    <div class="tabs">
+      <div class="tab active" id="tabGiris" onclick="switchTab('giris')">Giriş Yap</div>
+      <div class="tab" id="tabKayit" onclick="switchTab('kayit')">Kayıt Ol</div>
     </div>
 
-    <div class="grid">
-      <div class="stat-cards">
-        <div class="stat"><div class="label">API Durumu</div><div class="val green">AKTİF</div></div>
-        <div class="stat"><div class="label">Kullanıcı</div><div class="val gold">Misafir</div></div>
-        <div class="stat"><div class="label">Güvenlik</div><div class="val green">AKTİF</div></div>
-        <div class="stat"><div class="label">Analiz</div><div class="val green">AKTİF</div></div>
+    <div id="formGiris">
+      <div class="auth-field">
+        <label>Kullanıcı Adı</label>
+        <input type="text" id="girisKullanici" placeholder="Kullanıcı adınız" autocomplete="username">
       </div>
-      <div class="analysis">
-        <h3>Sistem Analizi</h3>
-        <div class="a-row"><span class="k">IP / Konum</span><span class="v no">BULUNAMADI</span></div>
-        <div class="a-row"><span class="k">Tarayıcı</span><span class="v ok" id="browserInfo">AKTİF</span></div>
-        <div class="a-row"><span class="k">Güvenlik</span><span class="v ok">AKTİF</span></div>
-        <div class="a-row"><span class="k">Console</span><span class="v no">BULUNAMADI</span></div>
-        <div style="font-size:.7em;color:var(--dim);margin-top:10px;">Son tarama: <span id="lastScan">şimdi</span></div>
+      <div class="auth-field">
+        <label>Şifre</label>
+        <input type="password" id="girisSifre" placeholder="Şifreniz" autocomplete="current-password">
+      </div>
+      <button class="auth-btn" onclick="doLogin()">GİRİŞ YAP</button>
+      <div class="auth-msg" id="girisMsg" style="display:none;"></div>
+    </div>
+
+    <div id="formKayit" style="display:none;">
+      <div class="auth-field">
+        <label>Kullanıcı Adı</label>
+        <input type="text" id="kayitKullanici" placeholder="En az 3 karakter" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label>Şifre</label>
+        <input type="password" id="kayitSifre" placeholder="En az 4 karakter" autocomplete="new-password">
+      </div>
+      <button class="auth-btn" onclick="doRegister()">KAYIT OL</button>
+      <div class="auth-msg" id="kayitMsg" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PANEL ============ -->
+<div class="app" id="app">
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="logo">AR</div>
+      <div class="logo-text">ARO<span>SYSTEM</span></div>
+    </div>
+    <div class="sidebar-title">Sorgu Menüsü</div>
+
+    <div class="cat open">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-left">👤 Nüfus & Kişi</div><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body">
+        <div class="item" data-api="tc" onclick="goTo('tc')">TC Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="tcpro" onclick="goTo('tcpro')">TC Pro <span class="badge pro">PRO</span></div>
+        <div class="item" data-api="adsoyad" onclick="goTo('adsoyad')">Ad Soyad <span class="badge free">FREE</span></div>
+        <div class="item" data-api="adsoyadpro" onclick="goTo('adsoyadpro')">Detaylı Kişi <span class="badge pro">PRO</span></div>
+        <div class="item" data-api="eokul" onclick="goTo('eokul')">E-Okul Sorgu <span class="badge free">FREE</span></div>
       </div>
     </div>
-  </section>
 
-  <!-- SORGU SAYFASI -->
-  <section class="view" id="view-query">
-    <div class="page-head">
-      <div class="back-btn" onclick="goHome()">←</div>
-      <h2 id="pageTitle">Sorgu</h2>
-      <div class="page-tag" id="pageTag">FREE</div>
+    <div class="cat">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-left">👪 Aile & Sülale</div><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body">
+        <div class="item" data-api="aile" onclick="goTo('aile')">Aile Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="ailepro" onclick="goTo('ailepro')">Aile Pro <span class="badge pro">PRO</span></div>
+        <div class="item" data-api="sulale" onclick="goTo('sulale')">Sülale Sorgu <span class="badge free">FREE</span></div>
+      </div>
     </div>
 
-    <div class="query-card">
-      <div class="desc" id="pageDesc"></div>
-      <div id="formFields"></div>
-      <button class="submit-btn" id="searchBtn" onclick="doSearch()">🔎 SORGULA</button>
+    <div class="cat">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-left">📍 Adres & Konum</div><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body">
+        <div class="item" data-api="adres" onclick="goTo('adres')">Detaylı Adres <span class="badge pro">PRO</span></div>
+        <div class="item" data-api="adaparsel" onclick="goTo('adaparsel')">Ada Parsel <span class="badge free">FREE</span></div>
+      </div>
     </div>
 
-    <div class="result" id="result">
-      <div class="placeholder">Sonuç burada görünecek</div>
+    <div class="cat">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-left">📱 İletişim</div><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body">
+        <div class="item" data-api="tcgsm" onclick="goTo('tcgsm')">TC→GSM <span class="badge free">FREE</span></div>
+        <div class="item" data-api="gsmtc" onclick="goTo('gsmtc')">GSM→TC <span class="badge free">FREE</span></div>
+      </div>
     </div>
-  </section>
-</main>
+
+    <div class="cat">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-left">💰 Tapu & Diğer</div><span class="arrow">▶</span>
+      </div>
+      <div class="cat-body">
+        <div class="item" data-api="tapu" onclick="goTo('tapu')">Tapu Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="isyeri" onclick="goTo('isyeri')">İş Yeri Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="cocuk" onclick="goTo('cocuk')">Çocuk Sorgu <span class="badge free">FREE</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div class="burger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+      <h2>ARO SYSTEM</h2>
+      <div class="user-pill" id="userPill">👤 Misafir</div>
+      <button class="logout-btn" onclick="doLogout()">ÇIKIŞ</button>
+    </div>
+
+    <section class="view active" id="view-dashboard">
+      <div class="welcome">
+        <h1>ARO SYSTEM'E HOŞGELDİNİZ</h1>
+        <p>Sol menüden sorgu tipi seç, kendi sayfasında işlem yap.</p>
+      </div>
+
+      <div class="grid">
+        <div class="stat-cards">
+          <div class="stat"><div class="label">API Durumu</div><div class="val green">AKTİF</div></div>
+          <div class="stat"><div class="label">Kullanıcı</div><div class="val gold" id="statUser">Misafir</div></div>
+          <div class="stat"><div class="label">Güvenlik</div><div class="val green">AKTİF</div></div>
+          <div class="stat"><div class="label">Analiz</div><div class="val green">AKTİF</div></div>
+        </div>
+        <div class="analysis">
+          <h3>Sistem Analizi</h3>
+          <div class="a-row"><span class="k">IP / Konum</span><span class="v no">BULUNAMADI</span></div>
+          <div class="a-row"><span class="k">Tarayıcı</span><span class="v ok" id="browserInfo">AKTİF</span></div>
+          <div class="a-row"><span class="k">Güvenlik</span><span class="v ok">AKTİF</span></div>
+          <div class="a-row"><span class="k">Console</span><span class="v no">BULUNAMADI</span></div>
+          <div style="font-size:.7em;color:var(--dim);margin-top:10px;">Son tarama: <span id="lastScan">şimdi</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-query">
+      <div class="page-head">
+        <div class="back-btn" onclick="goHome()">←</div>
+        <h2 id="pageTitle">Sorgu</h2>
+        <div class="page-tag" id="pageTag">FREE</div>
+      </div>
+
+      <div class="query-card">
+        <div class="desc" id="pageDesc"></div>
+        <div id="formFields"></div>
+        <button class="submit-btn" id="searchBtn" onclick="doSearch()">🔎 SORGULA</button>
+      </div>
+
+      <div class="result" id="result">
+        <div class="placeholder">Sonuç burada görünecek</div>
+      </div>
+    </section>
+  </main>
+</div>
 
 <script>
 // ============================================================
 // AYARLAR
 // ============================================================
-// Vercel'de kendi proxy'ni kullanacaksan burayı güncelle
-// Örn: '/api' (kendi Vercel serverless function'ın)
-const API_BASE = '/api';
-const API_KEY  = 'izeyder_d6aea79cbc0c';
+const API_BASE_AJAX   = 'https://apiv2.ajaxsystems.fun';
+const API_BASE_SEARCH = 'https://searchulp.xyz/api';
+const SEARCH_KEY      = 'izeyder_d6aea79cbc0c';
 
 const APIS = {
-  tc: {
-    label:'TC Sorgu', tag:'FREE', desc:'TC kimlik numarası ile kişi bilgisi sorgular.',
-    path:'/tc', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  tcpro: {
-    label:'TC Pro Sorgulama', tag:'PRO', desc:'Detaylı TC sorgusu - adres, aile, meslek bilgileri dahil.',
-    path:'/tcpro', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  adsoyad: {
-    label:'Ad Soyad Sorgulama', tag:'FREE', desc:'Ad ve soyad ile kişi araması yapar.',
-    path:'/adsoyad', fields:[
-      {p:'ad',    label:'Ad',    ph:'Örn: Ahmet',  type:'text'},
-      {p:'soyad', label:'Soyad', ph:'Örn: Yılmaz', type:'text'}
-    ]
-  },
-  adsoyadpro: {
-    label:'Detaylı Kişi Sorgulama', tag:'PRO', desc:'Ad soyad ile detaylı kişi bilgisi.',
-    path:'/adsoyadpro', fields:[
-      {p:'ad',    label:'Ad',    ph:'Ad',    type:'text'},
-      {p:'soyad', label:'Soyad', ph:'Soyad', type:'text'}
-    ]
-  },
-  aile: {
-    label:'Aile Sorgulama', tag:'FREE', desc:'TC ile aile bireylerini listeler.',
-    path:'/aile', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  sulale: {
-    label:'Sülale Sorgulama', tag:'FREE', desc:'TC ile sülale kayıtlarını listeler.',
-    path:'/sulale', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  cocuk: {
-    label:'Çocuk Sorgulama', tag:'FREE', desc:'TC ile çocuk kayıtlarını listeler.',
-    path:'/cocuk', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  adres: {
-    label:'Detaylı Adres Sorgulama', tag:'PRO', desc:'TC ile detaylı adres ve ikametgah bilgisi.',
-    path:'/adres', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  tcgsm: {
-    label:"TC'den GSM Sorgulama", tag:'FREE', desc:'TC numarasına bağlı GSM numaralarını listeler.',
-    path:'/tcgsm', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  },
-  gsmtc: {
-    label:"GSM'den TC Sorgulama", tag:'FREE', desc:'GSM numarasına bağlı TC bilgisi.',
-    path:'/gsmtc', fields:[{p:'gsm', label:'GSM Numarası', ph:'Örn: 5321234567', type:'tel'}]
-  },
-  isyeri: {
-    label:'İş Yeri Sorgulama', tag:'FREE', desc:'TC ile kayıtlı iş yeri bilgisi.',
-    path:'/isyeri', fields:[{p:'tc', label:'TC Kimlik No', ph:'11 haneli TC', type:'text'}]
-  }
+  tc:         { label:'TC Sorgu',                tag:'FREE', base:'ajax',   path:'/tc.php',         desc:'TC ile kişi bilgisi.',                    fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  tcpro:      { label:'TC Pro Sorgulama',        tag:'PRO',  base:'ajax',   path:'/tcpro.php',      desc:'Detaylı TC sorgusu.',                     fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adsoyad:    { label:'Ad Soyad Sorgulama',      tag:'FREE', base:'ajax',   path:'/adsoyad.php',    desc:'Ad soyad ile kişi araması.',              fields:[{p:'ad',label:'Ad',ph:'Örn: Ahmet'},{p:'soyad',label:'Soyad',ph:'Örn: Yılmaz'}] },
+  adsoyadpro: { label:'Detaylı Kişi Sorgulama',  tag:'PRO',  base:'search', path:'/adsoyadpro',     desc:'Ad soyad ile detaylı kişi.',              fields:[{p:'ad',label:'Ad',ph:'Ad'},{p:'soyad',label:'Soyad',ph:'Soyad'}] },
+  eokul:      { label:'E-Okul Sorgulama',        tag:'FREE', base:'ajax',   path:'/eokul.php',      desc:'TC ile e-okul kaydı.',                    fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  aile:       { label:'Aile Sorgulama',          tag:'FREE', base:'ajax',   path:'/aile.php',       desc:'TC ile aile bireyleri.',                  fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  ailepro:    { label:'Aile Pro Sorgulama',      tag:'PRO',  base:'ajax',   path:'/ailepro.php',    desc:'TC ile detaylı aile bilgisi.',            fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  sulale:     { label:'Sülale Sorgulama',        tag:'FREE', base:'ajax',   path:'/sulale.php',     desc:'TC ile sülale kayıtları.',                fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adres:      { label:'Detaylı Adres Sorgulama', tag:'PRO',  base:'ajax',   path:'/adres.php',      desc:'TC ile detaylı adres.',                   fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adaparsel:  { label:'Ada Parsel Sorgulama',    tag:'FREE', base:'ajax',   path:'/adaparsel.php',  desc:'İl/ilçe ile ada parsel.',                 fields:[{p:'il',label:'İl',ph:'Örn: İstanbul'},{p:'ilce',label:'İlçe',ph:'Örn: Kadıköy'}] },
+  tcgsm:      { label:"TC'den GSM Sorgulama",    tag:'FREE', base:'ajax',   path:'/tcgsm.php',      desc:'TC ile bağlı GSM numaraları.',            fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  gsmtc:      { label:"GSM'den TC Sorgulama",    tag:'FREE', base:'ajax',   path:'/gsmtc.php',      desc:'GSM ile TC bilgisi (auth otomatik fire).',fields:[{p:'gsm',label:'GSM Numarası',ph:'Örn: 5524378976'},{p:'auth',label:'Auth',ph:'fire',default:'fire'}] },
+  tapu:       { label:'Tapu Sorgulama',          tag:'FREE', base:'ajax',   path:'/tapu.php',       desc:'TC ile tapu kayıtları.',                  fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  isyeri:     { label:'İş Yeri Sorgulama',       tag:'FREE', base:'search', path:'/isyeri',         desc:'TC ile iş yeri bilgisi.',                 fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  cocuk:      { label:'Çocuk Sorgulama',         tag:'FREE', base:'search', path:'/cocuk',          desc:'TC ile çocuk kayıtları.',                 fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] }
 };
+
+// ============================================================
+// AUTH
+// ============================================================
+let currentUser = null;
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  if(t === 'giris'){
+    document.getElementById('tabGiris').classList.add('active');
+    document.getElementById('formGiris').style.display = 'block';
+    document.getElementById('formKayit').style.display = 'none';
+  } else {
+    document.getElementById('tabKayit').classList.add('active');
+    document.getElementById('formGiris').style.display = 'none';
+    document.getElementById('formKayit').style.display = 'block';
+  }
+}
+
+function showMsg(el, text, type){
+  const e = document.getElementById(el);
+  e.textContent = text;
+  e.className = 'auth-msg ' + type;
+  e.style.display = 'block';
+}
+
+async function doRegister(){
+  const k = document.getElementById('kayitKullanici').value.trim();
+  const s = document.getElementById('kayitSifre').value;
+  if(!k || !s){ showMsg('kayitMsg','Kullanıcı ve şifre gerekli','err'); return; }
+
+  try{
+    const r = await fetch('/api/kayit', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ kullanici:k, sifre:s })
+    });
+    const d = await r.json();
+    if(d.ok){
+      showMsg('kayitMsg','✅ Kayıt başarılı! Giriş yapılıyor...','ok');
+      setTimeout(() => {
+        document.getElementById('girisKullanici').value = k;
+        document.getElementById('girisSifre').value = s;
+        switchTab('giris');
+        doLogin();
+      }, 800);
+    } else {
+      showMsg('kayitMsg','❌ ' + (d.hata || 'Kayıt başarısız'),'err');
+    }
+  }catch(e){
+    showMsg('kayitMsg','❌ Bağlantı hatası: ' + e.message,'err');
+  }
+}
+
+async function doLogin(){
+  const k = document.getElementById('girisKullanici').value.trim();
+  const s = document.getElementById('girisSifre').value;
+  if(!k || !s){ showMsg('girisMsg','Kullanıcı ve şifre gerekli','err'); return; }
+
+  showMsg('girisMsg','🔄 Giriş yapılıyor...','info');
+
+  try{
+    const r = await fetch('/api/giris', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ kullanici:k, sifre:s })
+    });
+    const d = await r.json();
+    if(d.ok){
+      currentUser = { kullanici:d.kullanici, token:d.token, premium:d.premium };
+      showMsg('girisMsg','✅ Giriş başarılı! Menüye yönlendiriliyorsun...','ok');
+      setTimeout(openApp, 700);
+    } else {
+      showMsg('girisMsg','❌ ' + (d.hata || 'Giriş başarısız'),'err');
+    }
+  }catch(e){
+    showMsg('girisMsg','❌ Bağlantı hatası: ' + e.message,'err');
+  }
+}
+
+function openApp(){
+  document.getElementById('authWrap').style.display = 'none';
+  document.getElementById('app').classList.add('show');
+  document.getElementById('userPill').textContent = '👤 ' + currentUser.kullanici;
+  document.getElementById('statUser').textContent = currentUser.kullanici;
+  document.getElementById('browserInfo').textContent =
+    navigator.userAgent.includes('Mobile') ? 'MOBİL' : 'MASAÜSTÜ';
+  document.getElementById('lastScan').textContent = new Date().toLocaleTimeString('tr-TR');
+}
+
+function doLogout(){
+  currentUser = null;
+  location.reload();
+}
 
 // ============================================================
 // SIDEBAR
@@ -538,7 +683,7 @@ function closeSidebar(){
 function toggleCat(el){ el.parentElement.classList.toggle('open'); }
 
 // ============================================================
-// SAYFA GEÇİŞİ (SPA)
+// SAYFA GEÇİŞ
 // ============================================================
 let activeApi = null;
 
@@ -547,14 +692,12 @@ function showView(id){
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 }
-
 function goHome(){
   activeApi = null;
   document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
   showView('view-dashboard');
   if(window.innerWidth <= 768) closeSidebar();
 }
-
 function goTo(apiKey){
   const cfg = APIS[apiKey];
   if(!cfg) return;
@@ -576,28 +719,23 @@ function goTo(apiKey){
   cfg.fields.forEach((f, idx) => {
     const wrap = document.createElement('div');
     wrap.className = 'field';
-    wrap.innerHTML = `
-      <label>${f.label}</label>
-      <input type="${f.type || 'text'}" id="fld_${idx}" placeholder="${f.ph || ''}" autocomplete="off">
-    `;
+    const def = f.default || '';
+    wrap.innerHTML = `<label>${f.label}</label>
+      <input type="text" id="fld_${idx}" placeholder="${f.ph || ''}" value="${def}" autocomplete="off">`;
     fields.appendChild(wrap);
   });
 
-  document.getElementById('result').innerHTML =
-    '<div class="placeholder">Sonuç burada görünecek</div>';
-
+  document.getElementById('result').innerHTML = '<div class="placeholder">Sonuç burada görünecek</div>';
   showView('view-query');
-
   setTimeout(() => {
     const first = document.getElementById('fld_0');
     if(first) first.focus();
   }, 150);
-
   if(window.innerWidth <= 768) closeSidebar();
 }
 
 // ============================================================
-// SORGULAMA
+// SORGULAMA (curl proxy üzerinden)
 // ============================================================
 async function doSearch(){
   if(!activeApi) return;
@@ -605,35 +743,34 @@ async function doSearch(){
 
   const params = {};
   let empty = false;
-
   cfg.fields.forEach((f, idx) => {
     const el = document.getElementById('fld_' + idx);
     const val = el ? el.value.trim() : '';
-    if(!val) empty = true;
-    params[f.p] = val;
+    if(!val && !f.default) empty = true;
+    params[f.p] = val || f.default || '';
   });
 
-  if(empty){
-    showResult('<div class="status-bar err">❌ Tüm alanları doldurun!</div>');
-    return;
-  }
+  if(empty){ showResult('<div class="status-bar err">❌ Tüm alanları doldurun!</div>'); return; }
 
-  // URL: Vercel proxy üzerinden
-  let url = `${API_BASE}${cfg.path}?`;
-  const qs = Object.entries(params)
-    .map(([k,v]) => `${k}=${encodeURIComponent(v)}`).join('&');
-  url += qs + `&key=${API_KEY}`;
+  const base = cfg.base === 'search' ? API_BASE_SEARCH : API_BASE_AJAX;
+  const qs = Object.entries(params).map(([k,v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+  let targetUrl = `${base}${cfg.path}?${qs}`;
+  if(cfg.base === 'search') targetUrl += `&key=${SEARCH_KEY}`;
 
   const btn = document.getElementById('searchBtn');
   if(btn) btn.disabled = true;
   showResult('<div class="loading"><div class="spinner"></div><p style="color:var(--accent);">Sorgulanıyor...</p></div>');
 
   try{
-    const res = await fetch(url, { method:'GET' });
-    const txt = await res.text();
-    let data;
-    try{ data = JSON.parse(txt); }catch{ data = txt; }
-    renderResult(data);
+    // Curl proxy'e gönder (Vercel serverless function)
+    const proxyUrl = `/api/sorgu?url=${encodeURIComponent(targetUrl)}`;
+    const res = await fetch(proxyUrl);
+    const data = await res.json();
+    if(data.ok){
+      renderResult(data.data || data.raw);
+    } else {
+      showResult(`<div class="status-bar err">❌ ${data.hata || 'Hata'}</div>`);
+    }
   }catch(e){
     showResult(`<div class="status-bar err">❌ Bağlantı hatası: ${e.message}</div>`);
   }finally{
@@ -641,16 +778,13 @@ async function doSearch(){
   }
 }
 
-function showResult(html){
-  document.getElementById('result').innerHTML = html;
-}
+function showResult(html){ document.getElementById('result').innerHTML = html; }
 
 // ============================================================
 // SONUÇ RENDER
 // ============================================================
 function renderResult(data){
   const str = JSON.stringify(data, null, 2);
-
   if(str.length > 4000){
     const blob = new Blob([str], {type:'text/plain;charset=utf-8'});
     const url = URL.createObjectURL(blob);
@@ -687,25 +821,19 @@ function renderResult(data){
   }else{
     html = `<div class="res-card">${esc(String(data))}</div>`;
   }
-
   showResult(html);
 }
-
-function esc(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ANALİZ KARTI
-document.getElementById('browserInfo').textContent =
-  navigator.userAgent.includes('Mobile') ? 'MOBİL' : 'MASAÜSTÜ';
-document.getElementById('lastScan').textContent =
-  new Date().toLocaleTimeString('tr-TR');
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // Enter ile sorgula
 document.addEventListener('keypress', e => {
   if(e.key === 'Enter' && activeApi &&
      document.getElementById('view-query').classList.contains('active')){
     doSearch();
+  }
+  if(e.key === 'Enter' && document.getElementById('authWrap').style.display !== 'none'){
+    if(document.getElementById('formGiris').style.display !== 'none') doLogin();
+    else doRegister();
   }
 });
 </script>
