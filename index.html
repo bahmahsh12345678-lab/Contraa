@@ -13,454 +13,183 @@
   --red:#ff3366; --text:#e6edf3; --dim:#8b95a5; --green:#22c55e;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Segoe UI',system-ui,sans-serif;
-  background:var(--bg); color:var(--text);
-  min-height:100vh; overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(circle at 15% 25%,rgba(0,212,255,0.08),transparent 45%),
-    radial-gradient(circle at 85% 75%,rgba(255,0,229,0.06),transparent 45%);
-  pointer-events:none;z-index:0;
-}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 25%,rgba(0,212,255,0.08),transparent 45%),radial-gradient(circle at 85% 75%,rgba(255,0,229,0.06),transparent 45%);pointer-events:none;z-index:0;}
 
-/* ============ AUTH ============ */
-.auth-wrap{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  padding:20px;position:relative;z-index:1;
-}
-.auth-box{
-  width:100%;max-width:400px;
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:16px;padding:34px 30px;
-  animation:viewIn .5s ease;
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
-}
-.auth-logo{
-  width:60px;height:60px;border-radius:14px;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#000;font-size:24px;
-  margin:0 auto 16px;
-  box-shadow:0 0 30px rgba(0,212,255,.5);
-}
-.auth-box h1{
-  text-align:center;font-size:1.5em;font-weight:900;
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:6px;
-}
+/* AUTH */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;z-index:1;}
+.auth-box{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:34px 30px;animation:viewIn .5s ease;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.auth-logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:24px;margin:0 auto 16px;box-shadow:0 0 30px rgba(0,212,255,.5);}
+.auth-box h1{text-align:center;font-size:1.5em;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
 .auth-box p{text-align:center;color:var(--dim);font-size:.85em;margin-bottom:22px;}
-.tabs{
-  display:flex;gap:6px;background:var(--bg);padding:5px;
-  border-radius:10px;margin-bottom:20px;
-}
-.tab{
-  flex:1;padding:10px;text-align:center;
-  border-radius:8px;cursor:pointer;
-  font-weight:700;font-size:.9em;
-  color:var(--dim);transition:.2s;
-}
-.tab.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  color:#000;
-}
+.tabs{display:flex;gap:6px;background:var(--bg);padding:5px;border-radius:10px;margin-bottom:20px;}
+.tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:700;font-size:.9em;color:var(--dim);transition:.2s;}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#000;}
 .auth-field{margin-bottom:14px;}
-.auth-field label{
-  display:block;font-size:.8em;color:var(--accent2);
-  margin-bottom:6px;font-weight:700;
-}
-.auth-field input{
-  width:100%;padding:13px 16px;background:var(--bg);
-  border:1px solid var(--border2);border-radius:10px;
-  color:var(--text);font-size:.95em;outline:none;
-  transition:.2s;font-family:inherit;
-}
-.auth-field input:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(0,212,255,.12);
-}
-.auth-btn{
-  width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  border:none;border-radius:10px;color:#000;
-  font-weight:900;cursor:pointer;font-size:1em;
-  transition:.2s;margin-top:8px;
-}
+.auth-field label{display:block;font-size:.8em;color:var(--accent2);margin-bottom:6px;font-weight:700;}
+.auth-field input{width:100%;padding:13px 16px;background:var(--bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:.95em;outline:none;transition:.2s;font-family:inherit;}
+.auth-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.12);}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));border:none;border-radius:10px;color:#000;font-weight:900;cursor:pointer;font-size:1em;transition:.2s;margin-top:8px;}
 .auth-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,212,255,.4);}
-.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.auth-msg{
-  padding:10px;border-radius:8px;font-size:.85em;
-  margin-top:12px;font-weight:600;text-align:center;
-}
+.auth-msg{padding:10px;border-radius:8px;font-size:.85em;margin-top:12px;font-weight:600;text-align:center;}
 .auth-msg.err{background:rgba(255,51,102,.12);color:var(--red);}
 .auth-msg.ok{background:rgba(34,197,94,.12);color:var(--green);}
-.auth-msg.info{background:rgba(0,212,255,.12);color:var(--accent);}
 
-/* ============ PANEL ============ */
+/* PANEL */
 .app{display:none;}
 .app.show{display:block;}
-
-.sidebar{
-  position:fixed;left:0;top:0;bottom:0;width:270px;
-  background:var(--bg2);border-right:1px solid var(--border);
-  z-index:100;display:flex;flex-direction:column;
-  transition:transform .3s ease;overflow-y:auto;
-}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:270px;background:var(--bg2);border-right:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:transform .3s ease;overflow-y:auto;}
 .sidebar::-webkit-scrollbar{width:4px;}
 .sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 .sidebar.collapsed{transform:translateX(-270px);}
-.sidebar-head{
-  padding:18px 16px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
-}
-.logo{
-  width:38px;height:38px;border-radius:8px;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#000;font-size:16px;
-}
+.sidebar-head{padding:18px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.logo{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:16px;}
 .logo-text{font-weight:800;font-size:1em;}
-.logo-text span{
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.sidebar-title{
-  padding:12px 16px 6px;font-size:.7em;font-weight:700;
-  color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;
-}
+.logo-text span{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sidebar-title{padding:12px 16px 6px;font-size:.7em;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;}
 .cat{margin:0 8px 4px;border-radius:8px;overflow:hidden;}
-.cat-header{
-  padding:10px 12px;display:flex;align-items:center;
-  justify-content:space-between;cursor:pointer;
-  border-radius:8px;transition:.2s;user-select:none;
-  color:var(--accent2);
-}
+.cat-header{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-radius:8px;transition:.2s;user-select:none;color:var(--accent2);}
 .cat-header:hover{background:var(--surface);}
-.cat-header .cat-left{
-  display:flex;align-items:center;gap:10px;
-  font-size:.88em;font-weight:700;
-}
+.cat-header .cat-left{display:flex;align-items:center;gap:10px;font-size:.88em;font-weight:700;}
 .cat-header .arrow{font-size:.7em;color:var(--accent);transition:transform .25s;}
 .cat.open .arrow{transform:rotate(90deg);}
 .cat-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .cat.open .cat-body{max-height:800px;}
-.item{
-  padding:9px 12px 9px 40px;font-size:.82em;
-  color:#a8b3c4;cursor:pointer;border-radius:6px;margin:1px 4px;
-  display:flex;justify-content:space-between;align-items:center;
-  transition:.15s;position:relative;
-}
+.item{padding:9px 12px 9px 40px;font-size:.82em;color:#a8b3c4;cursor:pointer;border-radius:6px;margin:1px 4px;display:flex;justify-content:space-between;align-items:center;transition:.15s;position:relative;}
 .item:hover{background:var(--surface);color:var(--accent);}
-.item.active{
-  background:rgba(0,212,255,.12);color:var(--accent);font-weight:700;
-}
-.item.active::before{
-  content:'';position:absolute;left:0;top:20%;bottom:20%;
-  width:3px;background:linear-gradient(180deg,var(--accent),var(--accent3));
-  border-radius:0 3px 3px 0;
-}
+.item.active{background:rgba(0,212,255,.12);color:var(--accent);font-weight:700;}
+.item.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent3));border-radius:0 3px 3px 0;}
 .badge{font-size:.62em;padding:2px 6px;border-radius:4px;font-weight:800;}
 .badge.free{background:rgba(34,197,94,.15);color:var(--green);}
 .badge.pro{background:linear-gradient(90deg,var(--gold),var(--orange));color:#000;}
 
-.main{
-  margin-left:270px;padding:20px 28px 40px;
-  transition:margin .3s ease;position:relative;z-index:1;
-  min-height:100vh;
-}
+.main{margin-left:270px;padding:20px 28px 40px;transition:margin .3s ease;position:relative;z-index:1;min-height:100vh;}
 .main.expanded{margin-left:0;}
-.topbar{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:24px;padding-bottom:16px;
-  border-bottom:1px solid var(--border);
-}
-.burger{
-  width:38px;height:38px;border-radius:8px;
-  background:var(--surface);border:1px solid var(--border);
-  cursor:pointer;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:4px;
-}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.burger{width:38px;height:38px;border-radius:8px;background:var(--surface);border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
 .burger span{width:16px;height:2px;background:var(--accent);border-radius:2px;}
-.topbar h2{
-  font-size:1.3em;font-weight:900;
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.topbar .user-pill{
-  margin-left:auto;padding:6px 14px;border-radius:20px;
-  font-size:.75em;font-weight:800;
-  background:rgba(34,197,94,.15);color:var(--green);
-  border:1px solid rgba(34,197,94,.35);
-}
-.logout-btn{
-  margin-left:8px;padding:6px 14px;border-radius:20px;
-  font-size:.75em;font-weight:800;
-  background:rgba(255,51,102,.12);color:var(--red);
-  border:1px solid rgba(255,51,102,.35);
-  cursor:pointer;
-}
+.topbar h2{font-size:1.3em;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.topbar .user-pill{margin-left:auto;padding:6px 14px;border-radius:20px;font-size:.75em;font-weight:800;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.35);}
+.logout-btn{margin-left:8px;padding:6px 14px;border-radius:20px;font-size:.75em;font-weight:800;background:rgba(255,51,102,.12);color:var(--red);border:1px solid rgba(255,51,102,.35);cursor:pointer;}
 
 .view{display:none;animation:viewIn .35s ease;}
 .view.active{display:block;}
 @keyframes viewIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
-
-.welcome{
-  background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(255,0,229,.06));
-  border:1px solid var(--border2);border-radius:14px;
-  padding:24px 28px;margin-bottom:22px;
-}
-.welcome h1{
-  font-size:1.6em;font-weight:900;
-  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));
-  background-size:200% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:8px;animation:shine 3s linear infinite;
-}
+.welcome{background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(255,0,229,.06));border:1px solid var(--border2);border-radius:14px;padding:24px 28px;margin-bottom:22px;}
+.welcome h1{font-size:1.6em;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;animation:shine 3s linear infinite;}
 @keyframes shine{to{background-position:200% center;}}
 .welcome p{color:#a8b3c4;font-size:.9em;}
 .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px;}
 @media(max-width:900px){.grid{grid-template-columns:1fr;}}
 .stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.stat{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:10px;padding:14px 16px;transition:.2s;
-}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;transition:.2s;}
 .stat:hover{border-color:var(--accent);transform:translateY(-2px);}
-.stat .label{
-  color:var(--dim);font-size:.72em;text-transform:uppercase;
-  letter-spacing:1px;margin-bottom:6px;font-weight:700;
-}
+.stat .label{color:var(--dim);font-size:.72em;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:700;}
 .stat .val{font-size:1.15em;font-weight:900;color:var(--accent);}
 .stat .val.green{color:var(--accent2);}
-.stat .val.gold{
-  background:linear-gradient(90deg,var(--gold),var(--orange));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.analysis{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;padding:18px;
-}
-.analysis h3{
-  font-size:.9em;margin-bottom:14px;color:var(--accent);
-  display:flex;align-items:center;gap:8px;
-}
-.analysis h3::before{
-  content:'';width:8px;height:8px;border-radius:50%;
-  background:var(--accent2);box-shadow:0 0 10px var(--accent2);
-  animation:pulse 1.5s infinite;
-}
+.stat .val.gold{background:linear-gradient(90deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.analysis{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.analysis h3{font-size:.9em;margin-bottom:14px;color:var(--accent);display:flex;align-items:center;gap:8px;}
+.analysis h3::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2);animation:pulse 1.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-.a-row{
-  display:flex;justify-content:space-between;
-  padding:8px 0;font-size:.78em;
-  border-bottom:1px dashed rgba(255,255,255,.05);
-}
+.a-row{display:flex;justify-content:space-between;padding:8px 0;font-size:.78em;border-bottom:1px dashed rgba(255,255,255,.05);}
 .a-row:last-child{border:none;}
 .a-row .k{color:var(--dim);}
 .a-row .v{font-weight:800;font-size:.85em;}
 .v.ok{color:var(--accent2);}
 .v.no{color:var(--red);}
 .page-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
-.back-btn{
-  width:40px;height:40px;border-radius:10px;
-  background:var(--surface);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1.2em;color:var(--accent);transition:.2s;
-}
-.back-btn:hover{
-  border-color:var(--accent);background:rgba(0,212,255,.1);
-  transform:translateX(-3px);
-}
-.page-head h2{
-  font-size:1.4em;font-weight:900;
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.page-head .page-tag{
-  margin-left:auto;font-size:.7em;padding:4px 10px;border-radius:6px;
-  background:rgba(0,212,255,.12);color:var(--accent);
-  border:1px solid rgba(0,212,255,.3);
-  font-weight:800;
-}
-.query-card{
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:14px;padding:26px;margin-bottom:20px;
-}
-.query-card .desc{
-  color:#a8b3c4;font-size:.85em;margin-bottom:18px;
-  padding-bottom:14px;border-bottom:1px dashed var(--border);
-}
+.back-btn{width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2em;color:var(--accent);transition:.2s;}
+.back-btn:hover{border-color:var(--accent);background:rgba(0,212,255,.1);transform:translateX(-3px);}
+.page-head h2{font-size:1.4em;font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.page-head .page-tag{margin-left:auto;font-size:.7em;padding:4px 10px;border-radius:6px;background:rgba(0,212,255,.12);color:var(--accent);border:1px solid rgba(0,212,255,.3);font-weight:800;}
+.query-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:26px;margin-bottom:20px;}
+.query-card .desc{color:#a8b3c4;font-size:.85em;margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed var(--border);}
 .field{margin-bottom:14px;}
-.field label{
-  display:block;font-size:.8em;color:var(--accent2);
-  margin-bottom:6px;font-weight:700;
-}
-.field input{
-  width:100%;padding:14px 18px;background:var(--bg);
-  border:1px solid var(--border2);border-radius:10px;
-  color:var(--text);font-size:.95em;outline:none;
-  transition:.2s;font-family:inherit;
-}
-.field input:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(0,212,255,.12);
-}
-.submit-btn{
-  width:100%;padding:15px;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  border:none;border-radius:10px;color:#000;
-  font-weight:900;cursor:pointer;font-size:1em;
-  transition:.2s;margin-top:6px;
-}
+.field label{display:block;font-size:.8em;color:var(--accent2);margin-bottom:6px;font-weight:700;}
+.field input{width:100%;padding:14px 18px;background:var(--bg);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:.95em;outline:none;transition:.2s;font-family:inherit;}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.12);}
+.submit-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--accent),var(--accent3));border:none;border-radius:10px;color:#000;font-weight:900;cursor:pointer;font-size:1em;transition:.2s;margin-top:6px;}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.4);}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.result{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:22px;
-  min-height:120px;max-height:600px;overflow-y:auto;
-}
+.result{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;min-height:120px;max-height:600px;overflow-y:auto;}
 .result::-webkit-scrollbar{width:5px;}
-.result::-webkit-scrollbar-thumb{
-  background:linear-gradient(180deg,var(--accent),var(--accent3));
-  border-radius:3px;
-}
+.result::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent3));border-radius:3px;}
 .placeholder{color:var(--dim);text-align:center;padding:40px 20px;font-size:.9em;}
 .loading{text-align:center;padding:40px;}
-.spinner{
-  width:34px;height:34px;margin:0 auto 14px;
-  border:3px solid rgba(0,212,255,.15);border-top-color:var(--accent);
-  border-radius:50%;animation:spin .8s linear infinite;
-}
+.spinner{width:34px;height:34px;margin:0 auto 14px;border:3px solid rgba(0,212,255,.15);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.status-bar{
-  padding:10px 14px;border-radius:8px;
-  font-size:.85em;margin-bottom:14px;font-weight:800;
-}
-.status-bar.ok{
-  background:rgba(34,197,94,.12);color:var(--accent2);
-  border-left:3px solid var(--accent2);
-}
-.status-bar.err{
-  background:rgba(255,51,102,.12);color:var(--red);
-  border-left:3px solid var(--red);
-}
-.res-card{
-  background:var(--surface2);
-  border-left:3px solid transparent;
-  border-image:linear-gradient(180deg,var(--accent),var(--accent3)) 1;
-  border-radius:8px;padding:14px 16px;margin-bottom:10px;
-}
-.res-card .idx{
-  color:var(--accent3);font-weight:900;font-size:.8em;
-  margin-bottom:10px;
-}
-.res-card .row{
-  display:flex;justify-content:space-between;
-  padding:6px 0;font-size:.82em;
-  border-bottom:1px dashed rgba(255,255,255,.05);
-}
+.status-bar{padding:10px 14px;border-radius:8px;font-size:.85em;margin-bottom:14px;font-weight:800;}
+.status-bar.ok{background:rgba(34,197,94,.12);color:var(--accent2);border-left:3px solid var(--accent2);}
+.status-bar.err{background:rgba(255,51,102,.12);color:var(--red);border-left:3px solid var(--red);}
+.res-card{background:var(--surface2);border-left:3px solid transparent;border-image:linear-gradient(180deg,var(--accent),var(--accent3)) 1;border-radius:8px;padding:14px 16px;margin-bottom:10px;}
+.res-card .idx{color:var(--accent3);font-weight:900;font-size:.8em;margin-bottom:10px;}
+.res-card .row{display:flex;justify-content:space-between;padding:6px 0;font-size:.82em;border-bottom:1px dashed rgba(255,255,255,.05);}
 .res-card .row:last-child{border:none;}
 .res-card .k{color:var(--accent);font-weight:700;}
 .res-card .v{color:var(--text);text-align:right;max-width:60%;word-break:break-word;}
-.dl-btn{
-  display:inline-block;padding:11px 22px;
-  background:linear-gradient(135deg,var(--accent),var(--accent3));
-  color:#000;border-radius:8px;text-decoration:none;
-  font-weight:900;font-size:.85em;margin-top:10px;
-}
+.dl-btn{display:inline-block;padding:11px 22px;background:linear-gradient(135deg,var(--accent),var(--accent3));color:#000;border-radius:8px;text-decoration:none;font-weight:900;font-size:.85em;margin-top:10px;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;}
 .overlay.show{display:block;}
-@media(max-width:768px){
-  .sidebar{transform:translateX(-270px);}
-  .sidebar.open{transform:translateX(0);}
-  .main{margin-left:0;}
-}
+@media(max-width:768px){.sidebar{transform:translateX(-270px);}.sidebar.open{transform:translateX(0);}.main{margin-left:0;}}
 </style>
 </head>
 <body>
 
-<!-- ============ GİRİŞ / KAYIT ============ -->
+<!-- AUTH -->
 <div class="auth-wrap" id="authWrap">
   <div class="auth-box">
     <div class="auth-logo">AR</div>
     <h1>ARO SYSTEM</h1>
     <p>Giriş yap veya kayıt ol</p>
-
     <div class="tabs">
       <div class="tab active" id="tabGiris" onclick="switchTab('giris')">Giriş Yap</div>
       <div class="tab" id="tabKayit" onclick="switchTab('kayit')">Kayıt Ol</div>
     </div>
-
     <div id="formGiris">
-      <div class="auth-field">
-        <label>Kullanıcı Adı</label>
-        <input type="text" id="girisKullanici" placeholder="Kullanıcı adınız" autocomplete="username">
-      </div>
-      <div class="auth-field">
-        <label>Şifre</label>
-        <input type="password" id="girisSifre" placeholder="Şifreniz" autocomplete="current-password">
-      </div>
+      <div class="auth-field"><label>Kullanıcı Adı</label><input type="text" id="girisKullanici" placeholder="Kullanıcı adınız"></div>
+      <div class="auth-field"><label>Şifre</label><input type="password" id="girisSifre" placeholder="Şifreniz"></div>
       <button class="auth-btn" onclick="doLogin()">GİRİŞ YAP</button>
       <div class="auth-msg" id="girisMsg" style="display:none;"></div>
     </div>
-
     <div id="formKayit" style="display:none;">
-      <div class="auth-field">
-        <label>Kullanıcı Adı</label>
-        <input type="text" id="kayitKullanici" placeholder="En az 3 karakter" autocomplete="username">
-      </div>
-      <div class="auth-field">
-        <label>Şifre</label>
-        <input type="password" id="kayitSifre" placeholder="En az 4 karakter" autocomplete="new-password">
-      </div>
+      <div class="auth-field"><label>Kullanıcı Adı</label><input type="text" id="kayitKullanici" placeholder="En az 3 karakter"></div>
+      <div class="auth-field"><label>Şifre</label><input type="password" id="kayitSifre" placeholder="En az 4 karakter"></div>
       <button class="auth-btn" onclick="doRegister()">KAYIT OL</button>
       <div class="auth-msg" id="kayitMsg" style="display:none;"></div>
     </div>
   </div>
 </div>
 
-<!-- ============ PANEL ============ -->
+<!-- PANEL -->
 <div class="app" id="app">
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-head">
-      <div class="logo">AR</div>
-      <div class="logo-text">ARO<span>SYSTEM</span></div>
-    </div>
+    <div class="sidebar-head"><div class="logo">AR</div><div class="logo-text">ARO<span>SYSTEM</span></div></div>
     <div class="sidebar-title">Sorgu Menüsü</div>
 
     <div class="cat open">
-      <div class="cat-header" onclick="toggleCat(this)">
-        <div class="cat-left">👤 Nüfus & Kişi</div><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat(this)"><div class="cat-left">👤 Nüfus & Kişi</div><span class="arrow">▶</span></div>
       <div class="cat-body">
         <div class="item" data-api="tc" onclick="goTo('tc')">TC Sorgu <span class="badge free">FREE</span></div>
         <div class="item" data-api="tcpro" onclick="goTo('tcpro')">TC Pro <span class="badge pro">PRO</span></div>
         <div class="item" data-api="adsoyad" onclick="goTo('adsoyad')">Ad Soyad <span class="badge free">FREE</span></div>
         <div class="item" data-api="adsoyadpro" onclick="goTo('adsoyadpro')">Detaylı Kişi <span class="badge pro">PRO</span></div>
-        <div class="item" data-api="eokul" onclick="goTo('eokul')">E-Okul Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="eokul" onclick="goTo('eokul')">E-Okul <span class="badge free">FREE</span></div>
       </div>
     </div>
 
     <div class="cat">
-      <div class="cat-header" onclick="toggleCat(this)">
-        <div class="cat-left">👪 Aile & Sülale</div><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat(this)"><div class="cat-left">👪 Aile & Sülale</div><span class="arrow">▶</span></div>
       <div class="cat-body">
         <div class="item" data-api="aile" onclick="goTo('aile')">Aile Sorgu <span class="badge free">FREE</span></div>
         <div class="item" data-api="ailepro" onclick="goTo('ailepro')">Aile Pro <span class="badge pro">PRO</span></div>
-        <div class="item" data-api="sulale" onclick="goTo('sulale')">Sülale Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="sulale" onclick="goTo('sulale')">Sülale <span class="badge free">FREE</span></div>
       </div>
     </div>
 
     <div class="cat">
-      <div class="cat-header" onclick="toggleCat(this)">
-        <div class="cat-left">📍 Adres & Konum</div><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat(this)"><div class="cat-left">📍 Adres & Konum</div><span class="arrow">▶</span></div>
       <div class="cat-body">
         <div class="item" data-api="adres" onclick="goTo('adres')">Detaylı Adres <span class="badge pro">PRO</span></div>
         <div class="item" data-api="adaparsel" onclick="goTo('adaparsel')">Ada Parsel <span class="badge free">FREE</span></div>
@@ -468,9 +197,7 @@ body::before{
     </div>
 
     <div class="cat">
-      <div class="cat-header" onclick="toggleCat(this)">
-        <div class="cat-left">📱 İletişim</div><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat(this)"><div class="cat-left">📱 İletişim</div><span class="arrow">▶</span></div>
       <div class="cat-body">
         <div class="item" data-api="tcgsm" onclick="goTo('tcgsm')">TC→GSM <span class="badge free">FREE</span></div>
         <div class="item" data-api="gsmtc" onclick="goTo('gsmtc')">GSM→TC <span class="badge free">FREE</span></div>
@@ -478,13 +205,11 @@ body::before{
     </div>
 
     <div class="cat">
-      <div class="cat-header" onclick="toggleCat(this)">
-        <div class="cat-left">💰 Tapu & Diğer</div><span class="arrow">▶</span>
-      </div>
+      <div class="cat-header" onclick="toggleCat(this)"><div class="cat-left">💰 Tapu & Diğer</div><span class="arrow">▶</span></div>
       <div class="cat-body">
-        <div class="item" data-api="tapu" onclick="goTo('tapu')">Tapu Sorgu <span class="badge free">FREE</span></div>
-        <div class="item" data-api="isyeri" onclick="goTo('isyeri')">İş Yeri Sorgu <span class="badge free">FREE</span></div>
-        <div class="item" data-api="cocuk" onclick="goTo('cocuk')">Çocuk Sorgu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="tapu" onclick="goTo('tapu')">Tapu <span class="badge free">FREE</span></div>
+        <div class="item" data-api="isyeri" onclick="goTo('isyeri')">İş Yeri <span class="badge free">FREE</span></div>
+        <div class="item" data-api="cocuk" onclick="goTo('cocuk')">Çocuk <span class="badge free">FREE</span></div>
       </div>
     </div>
   </aside>
@@ -502,7 +227,6 @@ body::before{
         <h1>ARO SYSTEM'E HOŞGELDİNİZ</h1>
         <p>Sol menüden sorgu tipi seç, kendi sayfasında işlem yap.</p>
       </div>
-
       <div class="grid">
         <div class="stat-cards">
           <div class="stat"><div class="label">API Durumu</div><div class="val green">AKTİF</div></div>
@@ -527,16 +251,12 @@ body::before{
         <h2 id="pageTitle">Sorgu</h2>
         <div class="page-tag" id="pageTag">FREE</div>
       </div>
-
       <div class="query-card">
         <div class="desc" id="pageDesc"></div>
         <div id="formFields"></div>
         <button class="submit-btn" id="searchBtn" onclick="doSearch()">🔎 SORGULA</button>
       </div>
-
-      <div class="result" id="result">
-        <div class="placeholder">Sonuç burada görünecek</div>
-      </div>
+      <div class="result" id="result"><div class="placeholder">Sonuç burada görünecek</div></div>
     </section>
   </main>
 </div>
@@ -550,26 +270,41 @@ const API_BASE_SEARCH = 'https://searchulp.xyz/api';
 const SEARCH_KEY      = 'izeyder_d6aea79cbc0c';
 
 const APIS = {
-  tc:         { label:'TC Sorgu',                tag:'FREE', base:'ajax',   path:'/tc.php',         desc:'TC ile kişi bilgisi.',                    fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  tcpro:      { label:'TC Pro Sorgulama',        tag:'PRO',  base:'ajax',   path:'/tcpro.php',      desc:'Detaylı TC sorgusu.',                     fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  adsoyad:    { label:'Ad Soyad Sorgulama',      tag:'FREE', base:'ajax',   path:'/adsoyad.php',    desc:'Ad soyad ile kişi araması.',              fields:[{p:'ad',label:'Ad',ph:'Örn: Ahmet'},{p:'soyad',label:'Soyad',ph:'Örn: Yılmaz'}] },
-  adsoyadpro: { label:'Detaylı Kişi Sorgulama',  tag:'PRO',  base:'search', path:'/adsoyadpro',     desc:'Ad soyad ile detaylı kişi.',              fields:[{p:'ad',label:'Ad',ph:'Ad'},{p:'soyad',label:'Soyad',ph:'Soyad'}] },
-  eokul:      { label:'E-Okul Sorgulama',        tag:'FREE', base:'ajax',   path:'/eokul.php',      desc:'TC ile e-okul kaydı.',                    fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  aile:       { label:'Aile Sorgulama',          tag:'FREE', base:'ajax',   path:'/aile.php',       desc:'TC ile aile bireyleri.',                  fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  ailepro:    { label:'Aile Pro Sorgulama',      tag:'PRO',  base:'ajax',   path:'/ailepro.php',    desc:'TC ile detaylı aile bilgisi.',            fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  sulale:     { label:'Sülale Sorgulama',        tag:'FREE', base:'ajax',   path:'/sulale.php',     desc:'TC ile sülale kayıtları.',                fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  adres:      { label:'Detaylı Adres Sorgulama', tag:'PRO',  base:'ajax',   path:'/adres.php',      desc:'TC ile detaylı adres.',                   fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  adaparsel:  { label:'Ada Parsel Sorgulama',    tag:'FREE', base:'ajax',   path:'/adaparsel.php',  desc:'İl/ilçe ile ada parsel.',                 fields:[{p:'il',label:'İl',ph:'Örn: İstanbul'},{p:'ilce',label:'İlçe',ph:'Örn: Kadıköy'}] },
-  tcgsm:      { label:"TC'den GSM Sorgulama",    tag:'FREE', base:'ajax',   path:'/tcgsm.php',      desc:'TC ile bağlı GSM numaraları.',            fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  gsmtc:      { label:"GSM'den TC Sorgulama",    tag:'FREE', base:'ajax',   path:'/gsmtc.php',      desc:'GSM ile TC bilgisi (auth otomatik fire).',fields:[{p:'gsm',label:'GSM Numarası',ph:'Örn: 5524378976'},{p:'auth',label:'Auth',ph:'fire',default:'fire'}] },
-  tapu:       { label:'Tapu Sorgulama',          tag:'FREE', base:'ajax',   path:'/tapu.php',       desc:'TC ile tapu kayıtları.',                  fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  isyeri:     { label:'İş Yeri Sorgulama',       tag:'FREE', base:'search', path:'/isyeri',         desc:'TC ile iş yeri bilgisi.',                 fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
-  cocuk:      { label:'Çocuk Sorgulama',         tag:'FREE', base:'search', path:'/cocuk',          desc:'TC ile çocuk kayıtları.',                 fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] }
+  tc:         { label:'TC Sorgu', tag:'FREE', base:'ajax', path:'/tc.php', desc:'TC ile kişi bilgisi.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  tcpro:      { label:'TC Pro Sorgulama', tag:'PRO', base:'ajax', path:'/tcpro.php', desc:'Detaylı TC sorgusu.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adsoyad:    { label:'Ad Soyad Sorgulama', tag:'FREE', base:'ajax', path:'/adsoyad.php', desc:'Ad soyad ile arama.', fields:[{p:'ad',label:'Ad',ph:'Örn: Ahmet'},{p:'soyad',label:'Soyad',ph:'Örn: Yılmaz'}] },
+  adsoyadpro: { label:'Detaylı Kişi Sorgulama', tag:'PRO', base:'search', path:'/adsoyadpro', desc:'Ad soyad ile detaylı kişi.', fields:[{p:'ad',label:'Ad',ph:'Ad'},{p:'soyad',label:'Soyad',ph:'Soyad'}] },
+  eokul:      { label:'E-Okul Sorgulama', tag:'FREE', base:'ajax', path:'/eokul.php', desc:'TC ile e-okul kaydı.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  aile:       { label:'Aile Sorgulama', tag:'FREE', base:'ajax', path:'/aile.php', desc:'TC ile aile bireyleri.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  ailepro:    { label:'Aile Pro Sorgulama', tag:'PRO', base:'ajax', path:'/ailepro.php', desc:'TC ile detaylı aile.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  sulale:     { label:'Sülale Sorgulama', tag:'FREE', base:'ajax', path:'/sulale.php', desc:'TC ile sülale kayıtları.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adres:      { label:'Detaylı Adres Sorgulama', tag:'PRO', base:'ajax', path:'/adres.php', desc:'TC ile adres bilgisi.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  adaparsel:  { label:'Ada Parsel Sorgulama', tag:'FREE', base:'ajax', path:'/adaparsel.php', desc:'İl/ilçe ile ada parsel.', fields:[{p:'il',label:'İl',ph:'Örn: İstanbul'},{p:'ilce',label:'İlçe',ph:'Örn: Kadıköy'}] },
+  tcgsm:      { label:"TC'den GSM Sorgulama", tag:'FREE', base:'ajax', path:'/tcgsm.php', desc:'TC ile bağlı GSM numaraları.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  gsmtc:      { label:"GSM'den TC Sorgulama", tag:'FREE', base:'ajax', path:'/gsmtc.php', desc:'GSM ile TC (auth otomatik fire).', fields:[{p:'gsm',label:'GSM Numarası',ph:'Örn: 5524378976'},{p:'auth',label:'Auth',ph:'fire',default:'fire'}] },
+  tapu:       { label:'Tapu Sorgulama', tag:'FREE', base:'ajax', path:'/tapu.php', desc:'TC ile tapu kayıtları.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  isyeri:     { label:'İş Yeri Sorgulama', tag:'FREE', base:'search', path:'/isyeri', desc:'TC ile iş yeri bilgisi.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] },
+  cocuk:      { label:'Çocuk Sorgulama', tag:'FREE', base:'search', path:'/cocuk', desc:'TC ile çocuk kayıtları.', fields:[{p:'tc',label:'TC Kimlik No',ph:'11 haneli TC'}] }
 };
 
 // ============================================================
-// AUTH
+// LOCALSTORAGE AUTH (Kullanıcılar tarayıcıda saklanır)
 // ============================================================
+const STORAGE_KEY = 'aro_users_v1';
+
+function hashStr(s){
+  let h = 0;
+  for (let i = 0; i < s.length; i++){ h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
+  return 'h' + Math.abs(h).toString(36) + s.length;
+}
+
+function getUsers(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+}
+function setUsers(u){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); } catch {}
+}
+
 let currentUser = null;
 
 function switchTab(t){
@@ -585,65 +320,48 @@ function switchTab(t){
   }
 }
 
-function showMsg(el, text, type){
-  const e = document.getElementById(el);
+function showMsg(id, text, type){
+  const e = document.getElementById(id);
   e.textContent = text;
   e.className = 'auth-msg ' + type;
   e.style.display = 'block';
 }
 
-async function doRegister(){
+function doRegister(){
   const k = document.getElementById('kayitKullanici').value.trim();
   const s = document.getElementById('kayitSifre').value;
   if(!k || !s){ showMsg('kayitMsg','Kullanıcı ve şifre gerekli','err'); return; }
+  if(k.length < 3){ showMsg('kayitMsg','Kullanıcı adı en az 3 karakter','err'); return; }
+  if(s.length < 4){ showMsg('kayitMsg','Şifre en az 4 karakter','err'); return; }
 
-  try{
-    const r = await fetch('/api/kayit', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ kullanici:k, sifre:s })
-    });
-    const d = await r.json();
-    if(d.ok){
-      showMsg('kayitMsg','✅ Kayıt başarılı! Giriş yapılıyor...','ok');
-      setTimeout(() => {
-        document.getElementById('girisKullanici').value = k;
-        document.getElementById('girisSifre').value = s;
-        switchTab('giris');
-        doLogin();
-      }, 800);
-    } else {
-      showMsg('kayitMsg','❌ ' + (d.hata || 'Kayıt başarısız'),'err');
-    }
-  }catch(e){
-    showMsg('kayitMsg','❌ Bağlantı hatası: ' + e.message,'err');
-  }
+  const users = getUsers();
+  if(users[k]){ showMsg('kayitMsg','Bu kullanıcı adı zaten var','err'); return; }
+
+  users[k] = { sifre: hashStr(s), tarih: new Date().toISOString(), premium: false };
+  setUsers(users);
+  showMsg('kayitMsg','✅ Kayıt başarılı! Giriş yapılıyor...','ok');
+
+  setTimeout(() => {
+    document.getElementById('girisKullanici').value = k;
+    document.getElementById('girisSifre').value = s;
+    switchTab('giris');
+    doLogin();
+  }, 700);
 }
 
-async function doLogin(){
+function doLogin(){
   const k = document.getElementById('girisKullanici').value.trim();
   const s = document.getElementById('girisSifre').value;
   if(!k || !s){ showMsg('girisMsg','Kullanıcı ve şifre gerekli','err'); return; }
 
-  showMsg('girisMsg','🔄 Giriş yapılıyor...','info');
+  const users = getUsers();
+  const u = users[k];
+  if(!u){ showMsg('girisMsg','Kullanıcı bulunamadı','err'); return; }
+  if(u.sifre !== hashStr(s)){ showMsg('girisMsg','Şifre hatalı','err'); return; }
 
-  try{
-    const r = await fetch('/api/giris', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ kullanici:k, sifre:s })
-    });
-    const d = await r.json();
-    if(d.ok){
-      currentUser = { kullanici:d.kullanici, token:d.token, premium:d.premium };
-      showMsg('girisMsg','✅ Giriş başarılı! Menüye yönlendiriliyorsun...','ok');
-      setTimeout(openApp, 700);
-    } else {
-      showMsg('girisMsg','❌ ' + (d.hata || 'Giriş başarısız'),'err');
-    }
-  }catch(e){
-    showMsg('girisMsg','❌ Bağlantı hatası: ' + e.message,'err');
-  }
+  currentUser = { kullanici: k, premium: u.premium || false };
+  showMsg('girisMsg','✅ Giriş başarılı! Menüye yönlendiriliyorsun...','ok');
+  setTimeout(openApp, 600);
 }
 
 function openApp(){
@@ -651,12 +369,12 @@ function openApp(){
   document.getElementById('app').classList.add('show');
   document.getElementById('userPill').textContent = '👤 ' + currentUser.kullanici;
   document.getElementById('statUser').textContent = currentUser.kullanici;
-  document.getElementById('browserInfo').textContent =
-    navigator.userAgent.includes('Mobile') ? 'MOBİL' : 'MASAÜSTÜ';
+  document.getElementById('browserInfo').textContent = navigator.userAgent.includes('Mobile') ? 'MOBİL' : 'MASAÜSTÜ';
   document.getElementById('lastScan').textContent = new Date().toLocaleTimeString('tr-TR');
 }
 
 function doLogout(){
+  if(!confirm('Çıkış yapmak istediğine emin misin?')) return;
   currentUser = null;
   location.reload();
 }
@@ -703,6 +421,12 @@ function goTo(apiKey){
   if(!cfg) return;
   activeApi = apiKey;
 
+  // PRO kontrolü
+  if(cfg.tag === 'PRO' && (!currentUser || !currentUser.premium)){
+    alert('💎 Bu sorgu PREMIUM üyelik gerektirir!');
+    return;
+  }
+
   document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
   const item = document.querySelector(`.item[data-api="${apiKey}"]`);
   if(item) item.classList.add('active');
@@ -720,22 +444,18 @@ function goTo(apiKey){
     const wrap = document.createElement('div');
     wrap.className = 'field';
     const def = f.default || '';
-    wrap.innerHTML = `<label>${f.label}</label>
-      <input type="text" id="fld_${idx}" placeholder="${f.ph || ''}" value="${def}" autocomplete="off">`;
+    wrap.innerHTML = `<label>${f.label}</label><input type="text" id="fld_${idx}" placeholder="${f.ph || ''}" value="${def}" autocomplete="off">`;
     fields.appendChild(wrap);
   });
 
   document.getElementById('result').innerHTML = '<div class="placeholder">Sonuç burada görünecek</div>';
   showView('view-query');
-  setTimeout(() => {
-    const first = document.getElementById('fld_0');
-    if(first) first.focus();
-  }, 150);
+  setTimeout(() => { const f = document.getElementById('fld_0'); if(f) f.focus(); }, 150);
   if(window.innerWidth <= 768) closeSidebar();
 }
 
 // ============================================================
-// SORGULAMA (curl proxy üzerinden)
+// SORGULAMA - Doğrudan fetch + CORS proxy fallback
 // ============================================================
 async function doSearch(){
   if(!activeApi) return;
@@ -761,21 +481,38 @@ async function doSearch(){
   if(btn) btn.disabled = true;
   showResult('<div class="loading"><div class="spinner"></div><p style="color:var(--accent);">Sorgulanıyor...</p></div>');
 
-  try{
-    // Curl proxy'e gönder (Vercel serverless function)
-    const proxyUrl = `/api/sorgu?url=${encodeURIComponent(targetUrl)}`;
-    const res = await fetch(proxyUrl);
-    const data = await res.json();
-    if(data.ok){
-      renderResult(data.data || data.raw);
-    } else {
-      showResult(`<div class="status-bar err">❌ ${data.hata || 'Hata'}</div>`);
-    }
-  }catch(e){
-    showResult(`<div class="status-bar err">❌ Bağlantı hatası: ${e.message}</div>`);
-  }finally{
+  // 1) Direkt dene
+  try {
+    const res = await fetch(targetUrl);
+    const txt = await res.text();
+    let data; try { data = JSON.parse(txt); } catch { data = txt; }
+    renderResult(data);
     if(btn) btn.disabled = false;
+    return;
+  } catch(e) {
+    // CORS hatası — proxy dene
   }
+
+  // 2) CORS proxy fallback
+  const PROXIES = [
+    'https://corsproxy.io/?url=',
+    'https://api.allorigins.win/raw?url=',
+    'https://api.codetabs.com/v1/proxy?quest='
+  ];
+
+  for(const proxy of PROXIES){
+    try {
+      const res = await fetch(proxy + encodeURIComponent(targetUrl));
+      const txt = await res.text();
+      let data; try { data = JSON.parse(txt); } catch { data = txt; }
+      renderResult(data);
+      if(btn) btn.disabled = false;
+      return;
+    } catch(e) { /* sonrakini dene */ }
+  }
+
+  showResult('<div class="status-bar err">❌ Bağlantı hatası: API erişilemedi (CORS veya ağ sorunu)</div>');
+  if(btn) btn.disabled = false;
 }
 
 function showResult(html){ document.getElementById('result').innerHTML = html; }
@@ -791,8 +528,7 @@ function renderResult(data){
     showResult(`
       <div class="status-bar ok">✅ Büyük veri geldi (${(str.length/1024).toFixed(1)} KB)</div>
       <a class="dl-btn" href="${url}" download="sonuc_${Date.now()}.txt">📥 TXT İNDİR</a>
-      <details style="margin-top:14px;">
-        <summary style="cursor:pointer;color:var(--accent);">📄 Önizleme</summary>
+      <details style="margin-top:14px;"><summary style="cursor:pointer;color:var(--accent);">📄 Önizleme</summary>
         <pre style="margin-top:10px;max-height:300px;overflow:auto;font-size:.78em;color:var(--dim);">${esc(str.slice(0,3000))}...</pre>
       </details>
     `);
@@ -800,8 +536,7 @@ function renderResult(data){
   }
 
   let html = '';
-  const items = Array.isArray(data) ? data :
-                (data.data && Array.isArray(data.data)) ? data.data : null;
+  const items = Array.isArray(data) ? data : (data.data && Array.isArray(data.data)) ? data.data : null;
 
   if(items){
     html = `<div class="status-bar ok">✅ ${items.length} kayıt bulundu</div>`;
@@ -812,13 +547,13 @@ function renderResult(data){
       }
       html += '</div>';
     });
-  }else if(typeof data === 'object' && data !== null){
+  } else if(typeof data === 'object' && data !== null){
     html = '<div class="status-bar ok">✅ Sorgu tamamlandı</div><div class="res-card">';
     for(const [k,v] of Object.entries(data)){
       html += `<div class="row"><span class="k">${esc(k)}</span><span class="v">${esc(String(v ?? '-'))}</span></div>`;
     }
     html += '</div>';
-  }else{
+  } else {
     html = `<div class="res-card">${esc(String(data))}</div>`;
   }
   showResult(html);
@@ -827,13 +562,13 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 
 // Enter ile sorgula
 document.addEventListener('keypress', e => {
-  if(e.key === 'Enter' && activeApi &&
-     document.getElementById('view-query').classList.contains('active')){
-    doSearch();
-  }
-  if(e.key === 'Enter' && document.getElementById('authWrap').style.display !== 'none'){
-    if(document.getElementById('formGiris').style.display !== 'none') doLogin();
-    else doRegister();
+  if(e.key === 'Enter'){
+    if(document.getElementById('authWrap').style.display !== 'none'){
+      if(document.getElementById('formGiris').style.display !== 'none') doLogin();
+      else doRegister();
+    } else if(activeApi && document.getElementById('view-query').classList.contains('active')){
+      doSearch();
+    }
   }
 });
 </script>
