@@ -2,7 +2,6 @@ import fs from 'fs';
 import crypto from 'crypto';
 
 const DB_FILE = '/tmp/aro_users.json';
-
 function loadUsers() {
   try { if (fs.existsSync(DB_FILE)) return JSON.parse(fs.readFileSync(DB_FILE, 'utf-8')); } catch {}
   return {};
