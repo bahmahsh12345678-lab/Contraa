@@ -2,14 +2,11 @@ import fs from 'fs';
 import crypto from 'crypto';
 
 const DB_FILE = '/tmp/aro_users.json';
-
 function loadUsers() {
   try { if (fs.existsSync(DB_FILE)) return JSON.parse(fs.readFileSync(DB_FILE, 'utf-8')); } catch {}
   return {};
 }
-function saveUsers(users) {
-  try { fs.writeFileSync(DB_FILE, JSON.stringify(users, null, 2)); } catch {}
-}
+function saveUsers(u) { try { fs.writeFileSync(DB_FILE, JSON.stringify(u, null, 2)); } catch {} }
 function hash(s) { return crypto.createHash('sha256').update(s).digest('hex'); }
 
 export default async function handler(req, res) {
